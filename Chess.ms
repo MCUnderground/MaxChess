@@ -85,7 +85,6 @@ struct Chess
 			)
 			step = step + 1
 		)
-
 		_Board = Board.GetBoard()
 		for collum = 1 to _Board.count do
 		(
@@ -113,6 +112,22 @@ struct Chess
 				append C_Objects _Plane
 			)
 		)
+	),
+	fn UpdateBoard = 
+	(
+		ListNames = #("a","b","c","d","e","f","g","h")
+		for i = 1 to 8 do
+		(
+			for j = 1 to 8 do 
+			(
+				for o in objects do if o.pos.x == (j*sF) and o.pos.y == (i*sF) then 
+				(
+					Prop = (getProperty Board (ListNames[i]))
+					Prop[j] = o.name as integer
+				)
+			)
+		)
+		print (Board.GetBoard())
 	),
 	fn FreezePlayer = 
 	(
@@ -205,6 +220,7 @@ struct Chess
             	x = _piece.pos
                 _piece.pos = movePicked.pos
                 movePicked.pos = x
+                UpdateBoard()
                 if movePicked.name != "10" then 
                 (
                 	movePicked.name = "10"
